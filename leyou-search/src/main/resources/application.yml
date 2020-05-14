@@ -1,0 +1,30 @@
+server:
+  port: 8083
+spring:
+  application:
+    name: search-service
+  datasource:
+    url: jdbc:mysql://localhost:3306/leyou?serverTimezone=CTT
+    username: root
+    password: root
+    hikari:
+      max-lifetime: 28830000 # 一个连接的生命时长（毫秒），超时而且没被使用则被释放（retired），缺省:30分钟，建议设置比数据库超时时长少30秒，参考MySQL wait_timeout参数（show variables like '%timeout%';）
+      maximum-pool-size: 9
+  data:
+    elasticsearch:
+      cluster-name: elasticsearch
+      cluster-nodes: 服务器ip地址:9300
+  jackson:
+    default-property-inclusion: non_null
+  rabbitmq:
+    host: 127.0.0.1
+    username: leyou
+    password: leyou
+    virtual-host: /leyou
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:10086/eureka
+  instance:
+    lease-renewal-interval-in-seconds: 50 # 每隔5秒发送一次心跳
+    lease-expiration-duration-in-seconds: 50 # 10秒不发送就过期
